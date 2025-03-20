@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>2048 게임</title>
+</head>
+<body>
+    <h2>🎮 2048 게임</h2>
+    <button onclick="moveLeft()">←</button>
+    <button onclick="moveRight()">→</button>
+    <button onclick="moveUp()">↑</button>
+    <button onclick="moveDown()">↓</button>
+    <div id="board"></div>
+
+    <script>
+        let board = [
+            [0, 2, 0, 2],
+            [2, 0, 2, 0],
+            [0, 2, 0, 2],
+            [2, 0, 2, 0]
+        ];
+
+        function displayBoard() {
+            document.getElementById("board").innerHTML = board.map(row => row.join(" ")).join("<br>");
+        }
+
+        function moveLeft() {
+            board = board.map(row => row.filter(num => num !== 0).concat(Array(4 - row.filter(num => num !== 0).length).fill(0)));
+            displayBoard();
+        }
+
+        displayBoard();
+    </script>
+</body>
+</html>

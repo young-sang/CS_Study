@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅 기록</title>
+</head>
+<body>
+    <h2>💬 채팅 기록</h2>
+    <input type="text" id="message" placeholder="메시지 입력">
+    <button onclick="sendMessage()">전송</button>
+    <ul id="chat"></ul>
+
+    <script>
+        let messages = [];
+
+        function sendMessage() {
+            let msg = document.getElementById("message").value;
+            if (msg) {
+                messages.push(msg);
+                displayMessages();
+            }
+        }
+
+        function displayMessages() {
+            document.getElementById("chat").innerHTML = messages.map(m => `<li>${m}</li>`).join("");
+        }
+    </script>
+</body>
+</html>

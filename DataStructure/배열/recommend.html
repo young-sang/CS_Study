@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>추천 시스템</title>
+</head>
+<body>
+    <h2>📌 추천 콘텐츠</h2>
+    <button onclick="addViewed('영화 A', ['액션', '스릴러'])">영화 A 시청</button>
+    <button onclick="addViewed('영화 B', ['로맨스', '코미디'])">영화 B 시청</button>
+    <button onclick="recommend()">추천 받기</button>
+    <h3>추천 콘텐츠: <span id="recommendation"></span></h3>
+
+    <script>
+        let viewed = [];
+        let contentDB = [
+            { title: "영화 C", tags: ["액션", "모험"] },
+            { title: "영화 D", tags: ["코미디", "드라마"] },
+            { title: "영화 E", tags: ["스릴러", "공포"] }
+        ];
+
+        function addViewed(title, tags) {
+            viewed.push({ title, tags });
+        }
+
+        function recommend() {
+            let userTags = viewed.flatMap(v => v.tags);
+            let recommendations = contentDB.filter(content => 
+                content.tags.some(tag => userTags.includes(tag))
+            );
+
+            document.getElementById("recommendation").textContent = 
+                recommendations.length ? recommendations.map(c => c.title).join(", ") : "추천 없음";
+        }
+    </script>
+</body>
+</html>

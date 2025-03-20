@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>음악 플레이리스트</title>
+</head>
+<body>
+    <h2>🎵 플레이리스트</h2>
+    <button onclick="addSong('노래 A')">노래 A 추가</button>
+    <button onclick="addSong('노래 B')">노래 B 추가</button>
+    <ul id="playlist"></ul>
+    <button onclick="playRandom()">랜덤 재생</button>
+    <p id="playing"></p>
+
+    <script>
+        let playlist = [];
+
+        function addSong(song) {
+            playlist.push(song);
+            displayPlaylist();
+        }
+
+        function removeSong(index) {
+            playlist.splice(index, 1);
+            displayPlaylist();
+        }
+
+        function displayPlaylist() {
+            document.getElementById("playlist").innerHTML = playlist.map((song, index) =>
+                `<li>${song} <button onclick="removeSong(${index})">삭제</button></li>`
+            ).join("");
+        }
+
+        function playRandom() {
+            if (playlist.length > 0) {
+                const randomIndex = Math.floor(Math.random() * playlist.length);
+                document.getElementById("playing").textContent = `재생 중: ${playlist[randomIndex]}`;
+            }
+        }
+    </script>
+</body>
+</html>

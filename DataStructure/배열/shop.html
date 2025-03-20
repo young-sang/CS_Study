@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>장바구니</title>
+</head>
+<body>
+    <h2>🛒 장바구니</h2>
+    <button onclick="addItem('사과', 1000)">사과 추가 (1000원)</button>
+    <button onclick="addItem('바나나', 500)">바나나 추가 (500원)</button>
+    <ul id="cart"></ul>
+    <h3>총 가격: <span id="total">0</span>원</h3>
+
+    <script>
+        let cart = [];
+
+        function addItem(name, price) {
+            cart.push({ name, price });
+            displayCart();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            displayCart();
+        }
+
+        function displayCart() {
+            document.getElementById("cart").innerHTML = cart.map((item, index) =>
+                `<li>${item.name} - ${item.price}원 <button onclick="removeItem(${index})">삭제</button></li>`
+            ).join("");
+            document.getElementById("total").textContent = cart.reduce((sum, item) => sum + item.price, 0);
+        }
+    </script>
+</body>
+</html>

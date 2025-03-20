@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>순위표</title>
+</head>
+<body>
+    <h2>🏆 순위표</h2>
+    <input type="text" id="player" placeholder="이름">
+    <input type="number" id="score" placeholder="점수">
+    <button onclick="addScore()">추가</button>
+
+    <ul id="leaderboard"></ul>
+
+    <script>
+        let scores = [];
+
+        function addScore() {
+            const name = document.getElementById("player").value;
+            const score = parseInt(document.getElementById("score").value);
+            if (name && !isNaN(score)) {
+                scores.push({ name, score });
+                displayScores();
+            }
+        }
+
+        function displayScores() {
+            scores.sort((a, b) => b.score - a.score);
+            document.getElementById("leaderboard").innerHTML = scores.map((s, i) => 
+                `<li>${i + 1}. ${s.name}: ${s.score}점</li>`
+            ).join("");
+        }
+    </script>
+</body>
+</html>

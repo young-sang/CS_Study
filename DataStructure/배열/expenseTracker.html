@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>가계부</title>
+</head>
+<body>
+    <h2>💰 가계부</h2>
+    <input type="text" id="desc" placeholder="항목">
+    <input type="number" id="amount" placeholder="금액">
+    <select id="type">
+        <option value="수입">수입</option>
+        <option value="지출">지출</option>
+    </select>
+    <button onclick="addTransaction()">추가</button>
+    
+    <ul id="transactions"></ul>
+    <h3>총 잔액: <span id="balance">0</span>원</h3>
+
+    <script>
+        let transactions = [];
+
+        function addTransaction() {
+            const desc = document.getElementById("desc").value;
+            const amount = parseInt(document.getElementById("amount").value);
+            const type = document.getElementById("type").value;
+
+            if (desc && !isNaN(amount)) {
+                transactions.push({ desc, amount: type === "수입" ? amount : -amount });
+                displayTransactions();
+            }
+        }
+
+        function displayTransactions() {
+            document.getElementById("transactions").innerHTML = transactions.map((t, i) =>
+                `<li>${t.desc}: ${t.amount}원 <button onclick="removeTransaction(${i})">삭제</button></li>`
+            ).join("");
+            document.getElementById("balance").textContent = transactions.reduce((sum, t) => sum + t.amount, 0);
+        }
+
+        function removeTransaction(index) {
+            transactions.splice(index, 1);
+            displayTransactions();
+        }
+    </script>
+</body>
+</html>
